@@ -13,7 +13,7 @@ Welcome to my personal **developer portfolio website**, a showcase of my skills 
 
 ## 📸 Preview
 
-![Portfolio Preview](./public/profile.jpg)
+![Portfolio Preview](./my-portfolio/public/profile.jpg)
 
 ---
 

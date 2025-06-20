@@ -170,98 +170,88 @@ const sendEmail = (e) => {
 };
 
   return (
-  <div className="bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen text-white bg-gray-900 dark:bg-white  
-text-white dark:text-black  
-bg-blue-600 dark:bg-blue-500
-">
-    
+  <div className={`min-h-screen ${isDarkMode ? 'dark' : ''}`}>
+    {/* 🌙 Navbar */}
+    <nav className="fixed top-0 left-0 w-full bg-gray-950 border-b border-gray-800 shadow-md z-50">
+      <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="text-xl font-bold text-blue-400">Prajwal R K</div>
 
-<nav className="fixed top-0 left-0 w-full bg-gray-950 border-b border-gray-800 shadow-md z-50">
-  <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-    <div className="text-xl font-bold text-blue-400">Prajwal</div>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex space-x-6 text-sm font-semibold text-gray-300">
+          <a href="#hero" className="hover:text-blue-400 transition">Home</a>
+          <a href="#projects" className="hover:text-blue-400 transition">Projects</a>
+          <a href="#about" className="hover:text-blue-400 transition">About</a>
+          <a href="#contact" className="hover:text-blue-400 transition">Contact</a>
+          <a href="#certificates" className="hover:text-blue-400 transition">Certificates</a>
+          <a
+            href={`${process.env.PUBLIC_URL}/Resume.pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-400 transition"
+          >
+            View Resume
+          </a>
+        </div>
 
-    {/* Desktop menu */}
-    <div className="hidden md:flex space-x-6 text-sm font-semibold text-gray-300">
-      <a href="#hero" className="hover:text-blue-400 transition">Home</a>
-      <a href="#projects" className="hover:text-blue-400 transition">Projects</a>
-      <a href="#about" className="hover:text-blue-400 transition">About</a>
-      <a href="#contact" className="hover:text-blue-400 transition">Contact</a>
-      <a href="#certificates" className="hover:text-blue-400 transition">Certificates</a>
-      <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer"   className="hover:text-blue-400 transition">  View Resume</a>
+        {/* 🌙 Dark Mode Toggle + Mobile Menu Icon */}
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="text-lg text-gray-300 hover:text-blue-400 transition"
+            aria-label="Toggle Dark Mode"
+          >
+            {isDarkMode ? '☀️' : '🌙'}
+          </button>
 
-    </div>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="md:hidden text-gray-300 text-2xl focus:outline-none"
+          >
+            {menuOpen ? '✖' : '☰'}
+          </button>
+        </div>
+      </div>
 
-    {/* Mobile hamburger icon */}
-    <button
-      onClick={() => setMenuOpen(!menuOpen)}
-      className="md:hidden text-gray-300 text-2xl focus:outline-none"
-    >
-      {menuOpen ? "✖" : "☰"}
-    </button>
-  </div>
-
-  {/* Mobile menu dropdown */}
-  {menuOpen && (
-    <div className="md:hidden bg-gray-900 px-6 pb-4 space-y-4 text-sm text-gray-300">
-      {["hero", "projects", "about", "contact"].map((section) => (
-        <a
-          key={section}
-          href={`#${section}`}
-          onClick={() => setMenuOpen(false)} // Close menu on click
-          className="block hover:text-blue-400 transition"
-        >
-          {section.charAt(0).toUpperCase() + section.slice(1)}
-        </a>
-      ))}
-  <a
-  href={`${process.env.PUBLIC_URL}/Resume.pdf`}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="hover:text-blue-400 transition"
->
-  View Resume
-</a>
-
-
-    </div>
-  )}
-
-
-
-  <button
-  onClick={() => setIsDarkMode(!isDarkMode)}
-  className="ml-4 text-lg hover:text-blue-400 transition"
-  aria-label="Toggle Dark Mode"
->
-  {isDarkMode ? "☀️" : "🌙"}
-</button>
-
-</nav>
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-gray-900 px-6 pb-4 space-y-4 text-sm text-gray-300">
+          {["hero", "projects", "about", "contact", "certificates"].map((section) => (
+            <a
+              key={section}
+              href={`#${section}`}
+              onClick={() => setMenuOpen(false)}
+              className="block hover:text-blue-400 transition"
+            >
+              {section.charAt(0).toUpperCase() + section.slice(1)}
+            </a>
+          ))}
+          <a
+            href={`${process.env.PUBLIC_URL}/Resume.pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-blue-400 transition block"
+          >
+            View Resume
+          </a>
+        </div>
+      )}
+    </nav>
 
     {/* 🧑‍💻 Hero Section */}
-    <section id="hero" className="pt-20 flex items-center justify-center min-h-screen p-6">
-      <motion.section
-  id="hero"
-  className="pt-20 flex items-center justify-center min-h-screen p-6"
-  initial={{ opacity: 0 }}
-  whileInView={{ opacity: 1 }}
-  transition={{ duration: 1 }}
-  viewport={{ once: true }}
->
+    <section id="hero" className="pt-32 flex items-center justify-center min-h-screen p-6 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white dark:bg-white dark:text-black">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2 }}
         className="text-center space-y-6 max-w-2xl"
       >
-        
         <motion.h1
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 1 }}
           className="text-5xl font-extrabold"
         >
-          Hi, I'm <span className="text-blue-500">Prajwal</span>
+          Hi, I'm <span className="text-blue-500">Prajwal R K</span>
         </motion.h1>
 
         <motion.p
@@ -274,71 +264,65 @@ bg-blue-600 dark:bg-blue-500
         </motion.p>
 
         <motion.button
-  onClick={() => {
-    const projects = document.getElementById("projects");
-    projects?.scrollIntoView({ behavior: "smooth" });
-  }}
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
-  transition={{ type: "spring", stiffness: 300 }}
-  className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full font-semibold shadow-lg"
->
-  View My Work
-</motion.button>
-<a
-  href={`${process.env.PUBLIC_URL}/Resume.pdf`}
-  download
-  className="inline-block mt-4 bg-transparent text-blue-400 border border-blue-500 px-6 py-3 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition duration-300"
->
-  Download Resume
-</a>
-
-
-</motion.div>
-</motion.section>
-</section>
-
-{/* 💼 Projects Section */}
-<section id="projects" className="py-20 px-4 bg-gray-950 text-white">
-  <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1 }}
-    viewport={{ once: true }}
-    className="w-full max-w-6xl mx-auto"
-  >
-    <h2 className="text-3xl font-bold mb-10 text-center text-blue-400 underline decoration-blue-400">
-      🚀 My Projects
-    </h2>
-
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {projectList.map((project, index) => (
-        <motion.div
-          key={index}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+          onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 300 }}
-          onClick={() => setSelectedProject(project)}
-          className="bg-gray-800 hover:bg-gray-900 text-white rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all"
+          className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full font-semibold shadow-lg"
         >
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-52 object-cover"
-          />
-          <div className="p-5 space-y-2">
-            <h3 className="text-xl font-bold text-blue-400">{project.title}</h3>
-            <p className="text-sm text-gray-300 line-clamp-3 whitespace-pre-line">
-              {project.description}
-            </p>
-            <p className="text-xs text-gray-400 italic">{project.tech}</p>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  </motion.div>
-</section>
+          View My Work
+        </motion.button>
 
+        <a
+          href={`${process.env.PUBLIC_URL}/Resume.pdf`}
+          download
+          className="inline-block mt-4 bg-transparent text-blue-400 border border-blue-500 px-6 py-3 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition duration-300"
+        >
+          Download Resume
+        </a>
+      </motion.div>
+    </section>
+
+    {/* 💼 Projects Section */}
+    <section id="projects" className="py-20 px-4 bg-gray-950 text-white">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="w-full max-w-6xl mx-auto"
+      >
+        <h2 className="text-3xl font-bold mb-10 text-center text-blue-400 underline decoration-blue-400">
+          🚀 My Projects
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {projectList.map((project, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              onClick={() => setSelectedProject(project)}
+              className="bg-gray-800 hover:bg-gray-900 text-white rounded-xl overflow-hidden shadow-lg cursor-pointer transition-all"
+            >
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-52 object-cover"
+              />
+              <div className="p-5 space-y-2">
+                <h3 className="text-xl font-bold text-blue-400">{project.title}</h3>
+                <p className="text-sm text-gray-300 line-clamp-3 whitespace-pre-line">
+                  {project.description}
+                </p>
+                <p className="text-xs text-gray-400 italic">{project.tech}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
 
 
 {/* 👨‍💻 About Me Section */}

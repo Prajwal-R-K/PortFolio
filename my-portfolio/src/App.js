@@ -88,7 +88,7 @@ function AboutSection() {
       >
         {/* Profile Photo with Zoom */}
         <motion.img
-          src="/profile.jpg"
+          src={`${process.env.PUBLIC_URL}/profile.jpg`}
           alt="Prajwal Profile"
           className="w-48 h-48 rounded-full object-cover border-4 border-blue-600 shadow-lg cursor-pointer"
           initial={{ opacity: 0, scale: 0.8 }}
@@ -117,16 +117,23 @@ function AboutSection() {
         </div>
       </motion.div>
 
-      {/* Modal for Zoomed Profile */}
+      {/* Modal with Profile Picture + Text Content */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Zoomed Profile"
-        className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-2xl max-w-lg w-full mx-auto mt-20 outline-none"
+        className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-2xl max-w-3xl w-full mx-auto mt-20 outline-none text-gray-800 dark:text-white"
         overlayClassName="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-start z-50"
       >
-        <img src="/profile.jpg" alt="Zoomed" className="w-full h-auto rounded-lg" />
-        <div className="text-center mt-4">
+        <img
+          src={`${process.env.PUBLIC_URL}/profile.jpg`}
+          alt="Zoomed Profile"
+          className="w-full max-h-[400px] object-contain rounded-xl mb-6"
+        />
+        <p className="text-center mb-4 text-base">
+          I'm <span className="font-semibold text-blue-600 dark:text-blue-400">Prajwal R K</span>, a full-stack developer passionate about building impactful software and exploring the latest in web, mobile, and backend technologies.
+        </p>
+        <div className="text-center">
           <button
             onClick={() => setIsModalOpen(false)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
@@ -516,7 +523,7 @@ bg-blue-600 dark:bg-blue-500
     </h2>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
-      {[ 
+      {[
         //{ file: "sap_certificate.jpg", title: "SAP Certificate" },
         //{ file: "azure_cert.png", title: "Azure Cloud" },
         { file: "IOT_Infosys.pdf", title: "IoT Platforms Overview" },
@@ -539,9 +546,11 @@ bg-blue-600 dark:bg-blue-500
           <div className="relative z-10 p-6 h-full flex flex-col justify-between rounded-xl">
             {cert.file.endsWith('.pdf') ? (
               <>
-                <div className="pb-4 font-semibold text-gray-800 dark:text-white text-lg group-hover:underline transition-all duration-300">{cert.title}</div>
+                <div className="pb-4 font-semibold text-gray-800 dark:text-white text-lg group-hover:underline transition-all duration-300">
+                  {cert.title}
+                </div>
                 <a
-                  href={`/certificates/${cert.file}`}
+                  href={`${process.env.PUBLIC_URL}/certificates/${cert.file}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
@@ -552,11 +561,13 @@ bg-blue-600 dark:bg-blue-500
             ) : (
               <>
                 <motion.img
-                  src={`/certificates/${cert.file}`}
+                  src={`${process.env.PUBLIC_URL}/certificates/${cert.file}`}
                   alt={cert.title}
                   className="w-full h-64 object-cover rounded shadow-sm group-hover:scale-105 group-hover:rotate-1 transition duration-500"
                 />
-                <div className="pt-4 text-lg font-semibold text-gray-800 dark:text-white group-hover:underline transition-all duration-300">{cert.title}</div>
+                <div className="pt-4 text-lg font-semibold text-gray-800 dark:text-white group-hover:underline transition-all duration-300">
+                  {cert.title}
+                </div>
               </>
             )}
           </div>
@@ -565,6 +576,7 @@ bg-blue-600 dark:bg-blue-500
     </div>
   </motion.div>
 </section>
+
 
 <Modal
   isOpen={!!selectedProject}

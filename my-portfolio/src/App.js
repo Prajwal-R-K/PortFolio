@@ -213,13 +213,16 @@ bg-blue-600 dark:bg-blue-500
           {section.charAt(0).toUpperCase() + section.slice(1)}
         </a>
       ))}
-      <a
-        href="/Resume.pdf"
-        download
-        className="block text-blue-400 border border-blue-400 px-3 py-1 rounded-full hover:bg-blue-600 hover:text-white transition"
-      >
-        Resume
-      </a>
+  <a
+  href={`${process.env.PUBLIC_URL}/Resume.pdf`}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hover:text-blue-400 transition"
+>
+  View Resume
+</a>
+
+
     </div>
   )}
 
@@ -283,12 +286,13 @@ bg-blue-600 dark:bg-blue-500
   View My Work
 </motion.button>
 <a
-  href="/Resume.pdf"
+  href={`${process.env.PUBLIC_URL}/Resume.pdf`}
   download
   className="inline-block mt-4 bg-transparent text-blue-400 border border-blue-500 px-6 py-3 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition duration-300"
 >
-  📄 Download Resume
+  Download Resume
 </a>
+
 
 </motion.div>
 </motion.section>

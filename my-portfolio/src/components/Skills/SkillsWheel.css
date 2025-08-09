@@ -1,0 +1,18 @@
+.skills-wheel {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  animation: spin 20s linear infinite;
+  margin: auto;
+}
+.skills-wheel:hover { animation-play-state: paused; }
+.skill {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 120px;
+  transform: rotate(calc(var(--i) * 60deg)) translateY(-120px);
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

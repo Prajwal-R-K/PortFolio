@@ -1,0 +1,16 @@
+.carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+.carousel {
+  display: flex;
+  gap: 1rem;
+}
+.carousel-item {
+  flex: 0 0 auto;
+  width: 200px;
+}
+.glow-effect {
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  transition: 0.3s;
+}

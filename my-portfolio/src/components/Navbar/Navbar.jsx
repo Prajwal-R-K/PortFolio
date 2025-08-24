@@ -1,6 +1,6 @@
 import React from "react";
 
-function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen }) {
+function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen, activeSection }) {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur supports-[backdrop-filter]:bg-white/50 dark:supports-[backdrop-filter]:bg-black/30 bg-white/70 dark:bg-black/40 border-b border-white/20 dark:border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -19,7 +19,9 @@ function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen }) {
             <a
               key={item.href}
               href={item.href}
-              className="relative hover:text-blue-500 transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-gradient-to-r from-cyan-400 to-blue-600 hover:after:w-full after:transition-all"
+              className={`relative transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-gradient-to-r from-cyan-400 to-blue-600 hover:after:w-full after:transition-all ${
+                activeSection === item.href.replace('#','') ? 'text-blue-600 dark:text-cyan-300 after:w-full' : 'hover:text-blue-500'
+              }`}
             >
               {item.label}
             </a>
@@ -59,7 +61,7 @@ function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen }) {
               key={section}
               href={`#${section}`}
               onClick={() => setMenuOpen(false)}
-              className="block hover:text-blue-500 transition"
+              className={`block transition ${activeSection === section ? 'text-blue-600 dark:text-cyan-300 font-semibold' : 'hover:text-blue-500'}`}
             >
               {section.charAt(0).toUpperCase() + section.slice(1)}
             </a>

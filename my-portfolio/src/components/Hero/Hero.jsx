@@ -3,7 +3,35 @@ import { motion } from "framer-motion";
 
 function Hero() {
   return (
-    <section id="hero" className="pt-32 flex items-center justify-center min-h-screen p-6 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white dark:bg-white dark:text-black">
+    <section id="hero" className="relative overflow-hidden pt-32 flex items-center justify-center min-h-screen p-6 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white dark:bg-white dark:text-black">
+      {/* Animated gradient blobs */}
+      <motion.div
+        aria-hidden
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.2 }}
+        className="pointer-events-none absolute inset-0 -z-10"
+      >
+        <motion.div
+          className="absolute w-[40vw] h-[40vw] bg-gradient-to-br from-cyan-500/40 to-blue-700/30 blur-3xl rounded-full -top-24 -left-24"
+          animate={{
+            x: [0, 20, -10, 0],
+            y: [0, -10, 15, 0],
+            rotate: [0, 10, -5, 0],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute w-[35vw] h-[35vw] bg-gradient-to-tr from-sky-400/30 to-indigo-600/30 blur-3xl rounded-full -bottom-24 -right-24"
+          animate={{
+            x: [0, -15, 10, 0],
+            y: [0, 20, -10, 0],
+            rotate: [0, -8, 6, 0],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </motion.div>
+
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}

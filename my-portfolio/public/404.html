@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="0;url=/PortFolio/" />
+    <script>
+      // SPA redirect for GitHub Pages
+      (function() {
+        var l = window.location;
+        var pathname = l.pathname;
+        // If hosted at /PortFolio, ensure we redirect to the root with hash fallback
+        if (!pathname.endsWith('/')) pathname += '/';
+        l.replace('/PortFolio/' + (l.search || '') + (l.hash || ''));
+      })();
+    </script>
+    <title>Redirecting...</title>
+  </head>
+  <body>Redirecting...</body>
+</html>

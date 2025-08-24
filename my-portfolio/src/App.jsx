@@ -14,18 +14,19 @@ import ScrollProgressBar from "./components/Navigation/ScrollProgressBar";
 import NextSectionButton from "./components/Navigation/NextSectionButton";
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved) return saved === "dark";
+    const hour = new Date().getHours();
+    return !(hour >= 6 && hour < 18);
+  });
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
   }, [isDarkMode]);
-
-  useEffect(() => {
-    const hour = new Date().getHours();
-    setIsDarkMode(!(hour >= 6 && hour < 18));
-  }, []);
 
   return (
     <div className={`${isDarkMode ? "dark" : ""} relative`}>

@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# Prajwal R K — Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Modern, animated developer portfolio showcasing projects, skills, certificates, and contact information.
+
+Production site: https://prajwal-r-k.github.io/PortFolio
+
+## Features
+
+- Interactive sections with smooth transitions (Framer Motion)
+- Dark/light theme with persistence
+- Project carousel + modal with details and links
+- Skills with tooltips and category grouping
+- Certificates grid and viewer
+- Contact section (EmailJS-ready)
+- Polished SEO (OpenGraph/Twitter cards) and PWA metadata
+- GitHub Pages SPA routing (404 fallback)
+
+## Tech Stack
+
+- React (Create React App)
+- Tailwind CSS
+- Framer Motion, GSAP
+- React Icons, React Tooltip
+- React Router DOM (prepared)
+
+## Project Structure
+
+```
+my-portfolio/
+├─ public/
+│  ├─ index.html        # SEO, OG/Twitter meta, fonts
+│  ├─ manifest.json     # PWA metadata
+│  ├─ 404.html          # SPA fallback for GitHub Pages
+│  ├─ Resume.pdf, images, certificates
+├─ src/
+│  ├─ components/
+│  │  ├─ Navbar/, Hero/, Projects/, Skills/, Certificates/, Contact/
+│  │  └─ Shared/ (modal, cursor, transitions, parallax)
+│  ├─ data/
+│  │  ├─ projectData.js, skillData.js, certificateData.js
+│  ├─ App.jsx, index.css
+├─ package.json, tailwind.config.js, postcss.config.js
+```
+
+## Getting Started
+
+1) Install dependencies
+
+```
+npm install
+```
+
+2) Start the dev server
+
+```
+npm start
+```
+
+Open http://localhost:3000
 
 ## Available Scripts
 
-In the project directory, you can run:
+- `npm start` — start development server
+- `npm run build` — build production assets to `build/`
+- `npm run deploy` — build and deploy to GitHub Pages (branch: `gh-pages`)
 
-### `npm start`
+## Editing Content
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Projects: `src/data/projectData.js`
+- Skills: `src/data/skillData.js`
+- Certificates: `src/data/certificateData.js` (files in `public/certificates/`)
+- Resume: replace `public/Resume.pdf`
+- Hero text/buttons: `src/components/Hero/Hero.jsx`
+- Navbar links/brand: `src/components/Navbar/Navbar.jsx`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Theming & Design
 
-### `npm test`
+- Colors/fonts: `tailwind.config.js`
+- Global CSS and visuals (scrollbars, selection): `src/index.css`
+- Update fonts in `public/index.html` (Google Fonts preload links)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Deployment (GitHub Pages)
 
-### `npm run build`
+Already configured in `package.json`:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `homepage`: https://prajwal-r-k.github.io/PortFolio
+- `predeploy`/`deploy` scripts using `gh-pages`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Deploy:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm run deploy
+```
 
-### `npm run eject`
+## Contact Form (EmailJS)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If you want the contact form to send emails, add your EmailJS config in `Contact` component:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `service_id`
+- `template_id`
+- `public_key`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Follow EmailJS docs and keep keys in environment variables if exposing publicly.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Notes
 
-## Learn More
+- Tailwind warnings in some editors (about `@tailwind` at-rules) are normal; they disappear in the built output.
+- For SPA routing on GitHub Pages, `public/404.html` ensures deep links work.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## License
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This repository is for personal portfolio use. Reuse the structure if helpful; replace content, assets, and metadata with your own.

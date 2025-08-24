@@ -38,15 +38,18 @@ const projectList = [
     image: "/certificates/bank_system.jpg",
   },
   {
-    title: "🧮 Calculator Application",
+    title: "🔢 ProCalc",
     description: `
-• Built using Java Swing for GUI
-• Performs basic arithmetic with responsive layout
-• Implements event-driven programming and error handling
+• Scientific calculator UI (Thymeleaf + Bootstrap 5) with basic + scientific keys, collapsible panel, themes, and keyboard shortcuts
+• History with search, filters, favorites, copy/reuse; Memory keys: MC / MR / M+ / M−
+• Mini-plot: type expressions with x (e.g., sin(x)) to see a small live graph next to the result
+• Backend (Java 17 Spring Boot): tokenizer → shunting-yard (RPN) → evaluator with domain checks
+• Clean JSON APIs: evaluate, preview, history, memory; health endpoint at /health
     `,
-    tech: "Java (Swing)",
-    github: null,
-    image: "/certificates/calculator.jpg",
+    tech: "Spring Boot, Thymeleaf, Bootstrap 5, Java 17",
+    github: "https://github.com/Prajwal-R-K/calculator-button-app.git",
+    live: "https://calculator-button-app.onrender.com/",
+    image: `${process.env.PUBLIC_URL}/projects/Calculator.png`,
   }
 ];
 
@@ -240,11 +243,28 @@ export default function Projects() {
               <h2 className="text-2xl font-bold mb-2 text-blue-500">{modalProject.title}</h2>
               <p className="mb-3 text-gray-500 dark:text-gray-200">{modalProject.tech}</p>
               <div className="mb-4 whitespace-pre-line text-base">{modalProject.description}</div>
-              {modalProject.github && (
-                <a href={modalProject.github} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline hover:text-blue-700">
-                  🔗 View on GitHub
-                </a>
-              )}
+              <div className="flex items-center gap-3 flex-wrap">
+                {modalProject.live && (
+                  <a
+                    href={modalProject.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm shadow hover:opacity-90 transition"
+                  >
+                    🚀 Live Demo
+                  </a>
+                )}
+                {modalProject.github && (
+                  <a
+                    href={modalProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/20 text-blue-400 hover:bg-white/10 text-sm transition"
+                  >
+                    🔗 View on GitHub
+                  </a>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         )}

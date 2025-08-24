@@ -50,6 +50,22 @@ const projectList = [
     github: "https://github.com/Prajwal-R-K/calculator-button-app.git",
     live: "https://calculator-button-app.onrender.com/",
     image: `${process.env.PUBLIC_URL}/projects/Calculator.png`,
+    fallbackImage: `${process.env.PUBLIC_URL}/projects/Calculator.png`,
+  }
+  ,
+  {
+    title: "🧮 Java Calculator App",
+    description: `
+• Simple calculator with Spring Boot backend and React web UI
+• Supports +, -, *, /, %, ^ via UI and REST API
+• Error handling (e.g., division by zero) and unit tests for reliability
+• Quickstart-friendly: build with Maven and run locally
+    `,
+    tech: "Java 17, Spring Boot, React, REST API, Maven",
+    github: "https://github.com/Prajwal-R-K/calculator-app.git",
+    live: null,
+    image: `${process.env.PUBLIC_URL}/projects/BasicCalculator.png`,
+    fallbackImage: `${process.env.PUBLIC_URL}/projects/BasicCalculator.png`,
   }
 ];
 
@@ -60,6 +76,15 @@ export default function Projects() {
   const [modalProject, setModalProject] = useState(null);
   const [query, setQuery] = useState("");
   const [activeTag, setActiveTag] = useState("All");
+
+  // Conditional image fallback: only use when the project defines a fallbackImage
+  const handleImgError = (e, item) => {
+    if (!item) return;
+    if (item.fallbackImage) {
+      e.currentTarget.onerror = null;
+      e.currentTarget.src = item.fallbackImage;
+    }
+  };
 
   const openModal = (project) => {
     setModalProject(project);
@@ -187,7 +212,7 @@ export default function Projects() {
                 style={{ background: 'radial-gradient(220px circle at var(--mx) var(--my), rgba(56,189,248,0.25), transparent 45%)' }}
               />
               <div className="relative">
-                <img src={p.image} alt={p.title} className="w-full h-44 object-cover transform transition-transform duration-500 group-hover:scale-105" />
+                <img src={p.image} onError={(e) => handleImgError(e, p)} alt={p.title} className="w-full h-44 object-cover transform transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-4 text-left">
@@ -239,7 +264,7 @@ export default function Projects() {
               >
                 ✖
               </button>
-              <img src={modalProject.image} alt={modalProject.title} className="w-full h-48 sm:h-56 object-cover rounded-xl mb-4" />
+              <img src={modalProject.image} onError={(e) => handleImgError(e, modalProject)} alt={modalProject.title} className="w-full h-48 sm:h-56 object-cover rounded-xl mb-4" />
               <h2 className="text-2xl font-bold mb-2 text-blue-500 font-display">{modalProject.title}</h2>
               <p className="mb-3 text-gray-500 dark:text-gray-200">{modalProject.tech}</p>
               <div className="mb-4 whitespace-pre-line text-base">{modalProject.description}</div>

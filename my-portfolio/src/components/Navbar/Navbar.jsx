@@ -35,15 +35,8 @@ function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen, activeSectio
             View Resume
           </a>
         </div>
-        {/* Dark Mode / Mobile */}
+        {/* Mobile */}
         <div className="flex items-center space-x-4">
-          <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="text-lg text-gray-700 dark:text-gray-300 hover:text-blue-500 transition"
-            aria-label="Toggle Dark Mode"
-          >
-            {isDarkMode ? '☀️' : '🌙'}
-          </button>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden text-gray-700 dark:text-gray-300 text-2xl focus:outline-none"

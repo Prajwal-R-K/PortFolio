@@ -17,13 +17,15 @@ const projectList = [
   {
     title: "🎅 Secret Santa Game",
     description: `
-• Console-based Java app using HashMap & Random
-• Ensures no self-pairing in gift assignments
-• Follows clean OOP principles for structure
+• Festive Secret Santa web app: create groups with rules, budgets, deadlines
+• Join via group key (no account), submit wish lists, and get fair anonymous assignments (no self-matching)
+• Admin dashboard to manage participants and assignments; optional Santa Hunt mini‑game and confetti reveal
     `,
-    tech: "Java, Collections Framework",
+    tech: "Java 17, Spring Boot, Thymeleaf, Bootstrap 5",
     github: "https://github.com/Prajwal-R-K/santagame",
-    image: "/certificates/santa_preview.jpg",
+    image: `${process.env.PUBLIC_URL}/projects/SantaGame.png`,
+    fallbackImage: `${process.env.PUBLIC_URL}/projects/SantaGame.png`,
+    caption: "Web App",
   },
   {
     title: "🏦 Bank Management System",
@@ -66,6 +68,22 @@ const projectList = [
     live: null,
     image: `${process.env.PUBLIC_URL}/projects/BasicCalculator.png`,
     fallbackImage: `${process.env.PUBLIC_URL}/projects/BasicCalculator.png`,
+  }
+  ,
+  {
+    title: "🧵 Parallel Computing Visualization Hub",
+    description: `
+• React (TypeScript) educational app focused on matrix addition and parallelism fundamentals
+• Side‑by‑side serial vs parallel code, with OpenMP/task‑based examples and explanations
+• Interactive visuals: data splitting, task execution, thread assignments, performance notes
+• Clean UI with reusable components (tabs, cards), syntax‑highlighted code, and diagrams
+    `,
+    tech: "React (TS), Vite, OpenMP (C/C++ examples)",
+    github: "https://github.com/Prajwal-R-K/parllel_computing.git",
+    live: "https://prajwal-r-k.github.io/parllel_computing/",
+    image: `${process.env.PUBLIC_URL}/projects/ParallelComputing.png`,
+    fallbackImage: `${process.env.PUBLIC_URL}/projects/ParallelComputing.png`,
+    caption: "Educational App",
   }
 ];
 
@@ -213,6 +231,11 @@ export default function Projects() {
               />
               <div className="relative">
                 <img src={p.image} onError={(e) => handleImgError(e, p)} alt={p.title} className="w-full h-44 object-cover transform transition-transform duration-500 group-hover:scale-105" />
+                {p.caption && (
+                  <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-black/60 text-white border border-white/20 backdrop-blur">
+                    {p.caption}
+                  </span>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-4 text-left">

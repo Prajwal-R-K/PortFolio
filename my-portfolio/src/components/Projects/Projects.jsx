@@ -91,7 +91,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative py-20 bg-gray-950 text-white overflow-hidden"
+      className="relative py-20 bg-gray-950 text-white overflow-hidden font-sans"
       onMouseMove={(e) => {
         const s = e.currentTarget;
         const r = s.getBoundingClientRect();
@@ -215,7 +215,7 @@ export default function Projects() {
       <AnimatePresence>
         {modalOpen && modalProject && (
           <motion.div
-            className="fixed inset-0 flex justify-center items-center z-50 bg-black/70"
+            className="fixed inset-0 flex justify-center items-center z-50 bg-black/70 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -231,7 +231,7 @@ export default function Projects() {
               }}
               exit={{ rotateY: -720, opacity: 0, scale: 0.8 }}
               transition={{ duration: 1, ease: "easeInOut" }}
-              className="relative bg-white dark:bg-gray-900 p-6 rounded-2xl max-w-md w-full text-gray-900 dark:text-white glowing-border"
+              className="relative bg-white dark:bg-gray-900 p-6 rounded-2xl w-full max-w-2xl sm:max-w-xl md:max-w-2xl text-gray-900 dark:text-white glowing-border max-h-[85vh] overflow-y-auto font-sans"
             >
               <button
                 onClick={() => setModalOpen(false)}
@@ -239,8 +239,8 @@ export default function Projects() {
               >
                 ✖
               </button>
-              <img src={modalProject.image} alt={modalProject.title} className="w-full h-44 object-cover rounded-xl mb-4" />
-              <h2 className="text-2xl font-bold mb-2 text-blue-500">{modalProject.title}</h2>
+              <img src={modalProject.image} alt={modalProject.title} className="w-full h-48 sm:h-56 object-cover rounded-xl mb-4" />
+              <h2 className="text-2xl font-bold mb-2 text-blue-500 font-display">{modalProject.title}</h2>
               <p className="mb-3 text-gray-500 dark:text-gray-200">{modalProject.tech}</p>
               <div className="mb-4 whitespace-pre-line text-base">{modalProject.description}</div>
               <div className="flex items-center gap-3 flex-wrap">

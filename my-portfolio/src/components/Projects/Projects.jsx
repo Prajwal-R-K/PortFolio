@@ -85,6 +85,23 @@ const projectList = [
     fallbackImage: `${process.env.PUBLIC_URL}/projects/ParallelComputing.png`,
     caption: "Educational App",
   }
+  ,
+  {
+    title: "🌦️ Weather+ Pro",
+    description: `
+• Installable PWA weather app with offline mode and smart caching
+• Multiple providers: Open‑Meteo (default) + optional OpenWeather (user key)
+• Dashboard with current, hourly (48h) and 7‑day scaffolding; shareable city/lat‑lon routes
+• Map view (Leaflet) + dynamic themes, animations, accessibility and keyboard shortcuts
+• CI/CD to GitHub Pages; vite‑plugin‑pwa configured
+    `,
+    tech: "React, TypeScript, Vite, Tailwind, Framer Motion, Recharts, Leaflet, PWA",
+    github: "https://github.com/Prajwal-R-K/Weather-App",
+    live: "https://prajwal-r-k.github.io/Weather-App/",
+    image: `${process.env.PUBLIC_URL}/projects/WhetherPro.png`,
+    fallbackImage: `${process.env.PUBLIC_URL}/projects/WhetherPro.png`,
+    caption: "PWA",
+  }
 ];
 
 // using shared SlidingRow

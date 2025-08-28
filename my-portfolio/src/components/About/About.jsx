@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Modal from "react-modal";
+import { fadeInUp, scaleIn, viewport as viewportSettings } from '../../utils/animations';
 
 // Not needed in every file if set at App.jsx, but for clarity kept.
 Modal.setAppElement("#root");
@@ -9,25 +10,26 @@ function About() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section id="about" className="pt-20 py-20 px-6 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+    <section id="about" className="pt-20 py-20 px-6 bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
+        initial={fadeInUp.initial}
+        whileInView={fadeInUp.animate}
+        viewport={viewportSettings}
+        transition={fadeInUp.transition}
         className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10"
       >
         <motion.img
           src={`${process.env.PUBLIC_URL}/profile.jpg`}
           alt="Prajwal Profile"
           className="w-48 h-48 rounded-full object-cover border-4 border-blue-600 shadow-lg cursor-pointer"
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
+          initial={scaleIn.initial}
+          whileInView={scaleIn.animate}
+          viewport={viewportSettings}
+          transition={scaleIn.transition}
           onClick={() => setIsModalOpen(true)}
         />
         <div className="flex-1 space-y-6 text-base leading-relaxed text-center md:text-left">
-          <h2 className="text-3xl font-bold text-blue-500 dark:text-blue-400 underline decoration-blue-400">
+          <h2 className="text-3xl font-bold text-blue-600 dark:text-blue-400 underline decoration-blue-400">
             👨‍💻 About Me
           </h2>
           <p>Hello! I'm <span className="font-semibold text-blue-600 dark:text-blue-400">Prajwal R K</span>, a curious and passionate Computer Science & Engineering student from Cambridge Institute of Technology, Bangalore. I'm currently pursuing my B.Tech (2022–2026) and hold a CGPA of 8.6.</p>

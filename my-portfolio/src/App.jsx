@@ -8,6 +8,7 @@ import Certificates from "./components/Certificates/Certificates";
 import Contact from "./components/Contact/Contact";
 import ProjectModal from "./components/Shared/ProjectModal";
 import CustomCursor from "./components/Shared/CustomCursor";
+import PointerBubblesDOM from "./components/Shared/PointerBubblesDOM";
 
 import SectionTransitionWrapper from "./components/Shared/SectionTransitionWrapper";
 import ScrollProgressBar from "./components/Navigation/ScrollProgressBar";
@@ -67,27 +68,51 @@ function App() {
   }, []);
 
   return (
-    <div className={`${isDarkMode ? "dark" : ""} relative`}>
+    <div className={`${isDarkMode ? "dark" : ""} relative bg-white dark:bg-transparent`}>
+      <PointerBubblesDOM density={26} maxParticles={1500} sizeMin={1} sizeMax={3} drift={48} duration={900} />
       <CustomCursor />
       <ScrollProgressBar />
+
+      {/* Light mode soft brightening overlay */}
+      {!isDarkMode && (
+        <div aria-hidden className="fixed inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-white/5" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,255,255,0.16),_transparent_60%)]" />
+        </div>
+      )}
 
       {/* Quick Controls: Theme + Motion */}
       <div className="fixed top-3 right-3 z-[11000] flex items-center gap-2">
         <button
           onClick={() => setIsDarkMode((v) => !v)}
-          className="px-3 py-1.5 rounded-full bg-white/10 dark:bg-white/10 text-xs text-white backdrop-blur border border-white/15 hover:border-white/30 shadow-glow transition"
+          className="px-3 py-1.5 rounded-full text-xs transition border 
+            bg-white text-gray-800 border-gray-300 hover:bg-gray-50 
+            dark:bg-white/10 dark:text-white dark:border-white/15 dark:hover:border-white/30 backdrop-blur shadow-glow"
           aria-label="Toggle theme"
           title="Toggle theme"
         >
           {isDarkMode ? '🌙 Dark' : '🌗 Light'}
         </button>
+        {/* Motion switch */}
         <button
           onClick={() => setReducedMotion((v) => !v)}
-          className="px-3 py-1.5 rounded-full bg-white/10 dark:bg-white/10 text-xs text-white backdrop-blur border border-white/15 hover:border-white/30 shadow-glow transition"
-          aria-label="Toggle reduced motion"
-          title="Toggle reduced motion"
+          role="switch"
+          aria-checked={!reducedMotion}
+          aria-label="Toggle motion effects"
+          title="Toggle motion effects"
+          className={`relative w-16 h-8 rounded-full border backdrop-blur text-xs shadow-glow transition 
+            ${reducedMotion 
+              ? 'bg-white border-gray-300 text-gray-800 dark:bg-white/10 dark:border-white/20 dark:text-white' 
+              : 'bg-white border-gray-300 text-gray-800 dark:bg-gradient-to-r dark:from-[#7C4DFF] dark:to-[#00D1FF] dark:border-white/20 dark:text-white'}`}
         >
-          {reducedMotion ? '🛑 Motion Off' : '🌀 Motion On'}
+          <span className="sr-only">Motion</span>
+          <span
+            className={`absolute top-0.5 left-0.5 h-7 w-7 rounded-full bg-white/90 text-[#0b1020] grid place-items-center transition-transform duration-300 ${
+              reducedMotion ? 'translate-x-0' : 'translate-x-8'
+            }`}
+          >
+            {reducedMotion ? '❌' : '⚡'}
+          </span>
         </button>
       </div>
 

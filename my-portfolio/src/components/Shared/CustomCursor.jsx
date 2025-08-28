@@ -9,6 +9,7 @@ export default function CustomCursor() {
   const downHandlerRef = useRef(null);
   const enabledRef = useRef(true);
   const prefersReducedRef = useRef(false);
+  const darkModeRef = useRef(false);
 
   useEffect(() => {
     const cursor = cursorRef.current;
@@ -19,7 +20,11 @@ export default function CustomCursor() {
     prefersReducedRef.current = !!(media && media.matches);
     // Initialize from app-level override if present, otherwise from system pref
     const appReduced = typeof window !== 'undefined' ? !!window.__reducedMotion : false;
-    enabledRef.current = !(prefersReducedRef.current || appReduced);
+    // Enable only in dark mode for a cleaner light theme
+    const html = document.documentElement;
+    const isDark = html.classList.contains('dark');
+    darkModeRef.current = isDark;
+    enabledRef.current = isDark && !(prefersReducedRef.current || appReduced);
     const onMediaChange = (e) => {
       prefersReducedRef.current = e.matches;
       // if system now prefers reduced, disable unless app override says otherwise (appReduced=false)
@@ -27,6 +32,16 @@ export default function CustomCursor() {
       enabledRef.current = !(e.matches || currentAppReduced);
     };
     if (media && media.addEventListener) media.addEventListener('change', onMediaChange);
+
+    // Observe theme class changes to toggle effects on the fly
+    const onThemeChange = () => {
+      const nowDark = document.documentElement.classList.contains('dark');
+      darkModeRef.current = nowDark;
+      const currentAppReduced = typeof window !== 'undefined' ? !!window.__reducedMotion : false;
+      enabledRef.current = nowDark && !(prefersReducedRef.current || currentAppReduced);
+    };
+    const mo = new MutationObserver(onThemeChange);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
     // Listen to in-app reduced-motion toggle
     const onReducedMotionChanged = (ev) => {
@@ -86,7 +101,7 @@ export default function CustomCursor() {
 
     // Keyboard toggle: press 'r' to toggle rainbow trail on/off
     const onKey = (e) => {
-      if (e.key.toLowerCase() === 'r') {
+      if (e && e.key && typeof e.key === 'string' && e.key.toLowerCase() === 'r') {
         enabledRef.current = !enabledRef.current && !prefersReducedRef.current;
       }
     };
@@ -100,8 +115,9 @@ export default function CustomCursor() {
       document.removeEventListener('keydown', onKey);
       if (media && media.removeEventListener) media.removeEventListener('change', onMediaChange);
       document.removeEventListener('reduced-motion-changed', onReducedMotionChanged);
+      mo.disconnect();
     };
   }, []);
 
-  return <div ref={cursorRef} className="custom-cursor" />;
+  return <div ref={cursorRef} className="custom-cursor hidden dark:block" />;
 }

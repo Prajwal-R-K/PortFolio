@@ -1,18 +1,81 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SlidingRow from "../Shared/SlidingRow";
-import { FaFilePdf } from "react-icons/fa";
+import { fadeInUp, viewport as viewportSettings } from '../../utils/animations';
 import { FaDownload } from "react-icons/fa";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
 const certificates = [
-  { file: "IOT_Infosys.pdf", title: "IoT Platforms Overview" },
-  { file: "JavaFoundation_Infosys.pdf", title: "Java Foundation Certification" },
-  { file: "JavaProgramming_Infosys.pdf", title: "Programming using Java" },
-  { file: "JavaDataStructures_Infosys.pdf", title: "Data Structures and Algorithms using Java" },
-  { file: "PythonFoundation_Infosys.pdf", title: "Python Foundation Certification" },
-  { file: "MLFoundation_Infosys.pdf", title: "Machine Learning Foundation Certification" },
-  { file: "MLPython_Infosys.pdf", title: "Explore Machine Learning using Python" },
+  { 
+    file: "IOT_Infosys.pdf", 
+    title: "IoT Platforms Overview",
+    organization: "Infosys",
+    platform: "Infosys Springboard",
+    logo: "infosys-logo.png",
+    progress: 38,
+    icon: "🌐",
+    gradient: "from-purple-500 to-blue-500"
+  },
+  { 
+    file: "JavaFoundation_Infosys.pdf", 
+    title: "Java Foundation",
+    organization: "Infosys",
+    platform: "Infosys Springboard",
+    logo: "",
+    progress: 95,
+    icon: "☕",
+    gradient: "from-amber-500 to-orange-500"
+  },
+  { 
+    file: "JavaProgramming_Infosys.pdf", 
+    title: "Programming using Java",
+    organization: "Infosys",
+    platform: "Infosys Springboard",
+    logo: "",
+    progress: 88,
+    icon: "☕",
+    gradient: "from-amber-500 to-orange-500"
+  },
+  { 
+    file: "JavaDataStructures_Infosys.pdf", 
+    title: "Data Structures and Algorithms",
+    organization: "Infosys",
+    platform: "Infosys Springboard",
+    logo: "",
+    progress: 92,
+    icon: "☕",
+    gradient: "from-amber-500 to-orange-500"
+  },
+  { 
+    file: "PythonFoundation_Infosys.pdf", 
+    title: "Python Foundation",
+    organization: "Infosys",
+    platform: "Infosys Springboard",
+    logo: "infosys-logo.png",
+    progress: 85,
+    icon: "🐍",
+    gradient: "from-emerald-500 to-blue-500"
+  },
+  { 
+    file: "MLFoundation_Infosys.pdf", 
+    title: "Machine Learning Foundation",
+    organization: "Infosys",
+    platform: "Infosys Springboard",
+    logo: "infosys-logo.png",
+    progress: 42,
+    icon: "🤖",
+    gradient: "from-pink-500 to-purple-500"
+  },
+  { 
+    file: "MLPython_Infosys.pdf", 
+    title: "Machine Learning with Python",
+    organization: "Infosys",
+    platform: "Infosys Springboard",
+    logo: "infosys-logo.png",
+    progress: 65,
+    icon: "🤖",
+    gradient: "from-pink-500 to-purple-500"
+  },
 ];
 
 // now uses shared SlidingRow
@@ -23,25 +86,34 @@ export default function Certificates() {
   const [activeCert, setActiveCert] = useState(null);
   // Helpers
   const openPreview = useCallback((cert) => {
+    // Scroll to certificates section
+    document.getElementById('certificates').scrollIntoView({ behavior: 'smooth' });
+    // Lock body scroll
+    document.body.style.overflow = 'hidden';
     setActiveCert(cert);
     setPreviewOpen(true);
   }, []);
 
+  // Clean up scroll lock when component unmounts
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
   const closePreview = useCallback(() => {
+    // Unlock body scroll
+    document.body.style.overflow = 'auto';
     setPreviewOpen(false);
     setActiveCert(null);
   }, []);
 
-  // Card animation variants
-  const cardVariants = {
-    initial: { opacity: 0, y: 20, scale: 0.96 },
-    in: { opacity: 1, y: 0, scale: 1 },
-  };
+  // Using shared animation variants from utils/animations.js
 
   return (
     <section
       id="certificates"
-      className="relative py-20 px-6 bg-gray-100 dark:bg-gray-900 dark:text-white overflow-hidden"
+      className="relative py-20 px-6 bg-white text-gray-900 dark:bg-gray-900 dark:text-white overflow-hidden"
       onMouseMove={(e) => {
         const s = e.currentTarget;
         const r = s.getBoundingClientRect();
@@ -54,7 +126,7 @@ export default function Certificates() {
       {/* Parallax gradient blobs */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full blur-3xl opacity-30"
+        className="pointer-events-none absolute -top-24 -left-24 w-96 h-96 rounded-full blur-3xl opacity-30 hidden dark:block"
         style={{
           background: 'radial-gradient(circle at center, rgba(99,102,241,0.35), transparent 60%)',
           transform: 'translate3d(calc(var(--parx,0)*20px), calc(var(--pary,0)*-10px), 0)'
@@ -62,7 +134,7 @@ export default function Certificates() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-32 -right-24 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-25"
+        className="pointer-events-none absolute -bottom-32 -right-24 w-[28rem] h-[28rem] rounded-full blur-3xl opacity-25 hidden dark:block"
         style={{
           background: 'radial-gradient(circle at center, rgba(34,211,238,0.35), transparent 60%)',
           transform: 'translate3d(calc(var(--parx,0)*-15px), calc(var(--pary,0)*12px), 0)'
@@ -72,7 +144,9 @@ export default function Certificates() {
         <h2 className="text-3xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
           🏅 My Certificates
         </h2>
-        <p className="mb-10 text-gray-600 dark:text-gray-300">Browse my certifications. Click to preview, download, or open.</p>
+        <p className="mb-10 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          These certifications reflect my technical learning and expertise in programming and data structures.
+        </p>
         {/* Sliding window controls */}
         <SlidingRow
           items={certificates}
@@ -80,92 +154,154 @@ export default function Certificates() {
           renderItem={(cert, index) => (
             <motion.div
               key={cert.file}
-              variants={cardVariants}
+              variants={fadeInUp}
               initial="initial"
-              whileInView="in"
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.45, delay: index * 0.05 }}
-              className="group relative rounded-2xl border border-white/10 bg-white/70 dark:bg-gray-800/70 backdrop-blur shadow-lg overflow-hidden h-full will-change-transform"
+              whileInView="animate"
+              viewport={viewportSettings}
+              transition={{ ...fadeInUp.transition, delay: index * 0.05 }}
+              className={`group relative rounded-2xl border border-white/20 bg-white/70 dark:bg-gray-800/70 backdrop-blur-lg shadow-xl overflow-hidden h-full will-change-transform 
+                transition-all duration-300 ease-in-out hover:scale-[1.03] hover:shadow-2xl hover:-translate-y-1
+                hover:bg-gradient-to-br ${cert.gradient} hover:bg-opacity-10
+                after:absolute after:inset-0 after:pointer-events-none after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-300
+                ${
+                  cert.gradient.includes('blue') 
+                    ? 'hover:shadow-blue-500/20 after:bg-gradient-to-br after:from-blue-500/5 after:to-transparent' 
+                    : cert.gradient.includes('orange') 
+                      ? 'hover:shadow-orange-500/20 after:bg-gradient-to-br after:from-orange-500/5 after:to-transparent' 
+                      : 'hover:shadow-purple-500/20 after:bg-gradient-to-br after:from-purple-500/5 after:to-transparent'
+                }
+              `}
               onMouseMove={(e) => {
                 const el = e.currentTarget;
                 const r = el.getBoundingClientRect();
                 const x = (e.clientX - r.left) / r.width - 0.5;
                 const y = (e.clientY - r.top) / r.height - 0.5;
-                el.style.transform = `perspective(800px) rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg)`;
+                el.style.setProperty('--rx', `${(-y * 6).toFixed(2)}deg`);
+                el.style.setProperty('--ry', `${(x * 6).toFixed(2)}deg`);
+                el.style.transform = 'perspective(800px) rotateX(var(--rx, 0)) rotateY(var(--ry, 0))';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+                e.currentTarget.style.transform = 'perspective(800px) rotateX(0) rotateY(0)';
               }}
             >
-              {/* Glow */}
-              <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'radial-gradient(200px circle at var(--mx,50%) var(--my,50%), rgba(56,189,248,0.18), transparent 40%)' }} />
-              <div
-                onMouseMove={(e) => {
-                  const r = e.currentTarget.getBoundingClientRect();
-                  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
-                  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
-                }}
-                className="p-5 flex flex-col h-full"
-              >
-                {cert.file.endsWith('.pdf') ? (
-                  <div className="flex-1 flex items-center justify-center rounded-lg bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-600 mb-4">
-                    <FaFilePdf className="text-red-500" size={42} />
+              {/* Platform Badge (top-center) with theme color */}
+              <div className="absolute top-4 inset-x-0 flex justify-center pointer-events-none">
+                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium shadow-sm backdrop-blur-sm
+                  ${cert.gradient.includes('blue') ? 'bg-blue-100/90 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200' : 
+                     cert.gradient.includes('orange') ? 'bg-amber-100/90 text-amber-800 dark:bg-amber-900/50 dark:text-amber-200' : 
+                     'bg-purple-100/90 text-purple-800 dark:bg-purple-900/50 dark:text-purple-200'}
+                  transition-all duration-300 group-hover:scale-105 group-hover:shadow-md`}>
+                  {cert.platform}
+                </span>
+              </div>
+              
+              {/* Card Content */}
+              <div className="h-full flex flex-col">
+                <div className="flex-1 p-6 pt-16">
+                {/* Removed platform row (icon + text) */}
+
+                {/* Centered Logo / Preview */}
+                <div className="flex justify-center mb-4">
+                  <div className={`relative w-24 h-24 md:w-28 md:h-28 rounded-full p-0.5 bg-gradient-to-br ${cert.gradient} shadow-inner`}> 
+                    <div className="w-full h-full rounded-full bg-white/90 dark:bg-gray-800/85 flex items-center justify-center 
+                      group-hover:[animation:pulse_1.5s_ease-in-out_infinite] group-hover:ring-2 group-hover:ring-white/30">
+                      <img 
+                        src={`/images/logos/${cert.logo}`}
+                        alt={cert.title}
+                        className="w-12 h-12 object-contain"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          const iconEl = e.currentTarget.nextElementSibling;
+                          if (iconEl) iconEl.style.display = 'inline-flex';
+                        }}
+                      />
+                      <span className="text-4xl hidden" aria-hidden>{cert.icon}</span>
+                    </div>
                   </div>
-                ) : (
-                  <motion.img
-                    src={`${process.env.PUBLIC_URL}/certificates/${cert.file}`}
-                    alt={cert.title}
-                    className="w-full h-40 object-cover rounded-lg mb-4"
-                    whileHover={{ scale: 1.03 }}
-                    transition={{ duration: 0.25 }}
-                  />
-                )}
-                <h3 className="text-left text-lg font-semibold text-gray-800 dark:text-white">{cert.title}</h3>
-                <div className="mt-4 flex gap-2">
-                  <button
-                    onClick={() => openPreview(cert)}
-                    className="inline-flex items-center justify-center bg-blue-600 text-white px-3 py-1.5 rounded-full hover:bg-blue-700 transition shadow-md text-sm will-change-transform"
-                    onMouseMove={(e) => {
-                      const b = e.currentTarget.getBoundingClientRect();
-                      const x = e.clientX - (b.left + b.width / 2);
-                      const y = e.clientY - (b.top + b.height / 2);
-                      e.currentTarget.style.transform = `translate3d(${x * 0.1}px, ${y * 0.1}px, 0) scale(1.03)`;
-                    }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'translate3d(0,0,0) scale(1)'; }}
-                  >
-                    <FaFilePdf className="mr-1" size={14} /> Preview
-                  </button>
-                  <a
-                    href={`${process.env.PUBLIC_URL}/certificates/${cert.file}`}
-                    download
-                    className="inline-flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white px-2.5 py-1.5 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600 transition shadow-md text-sm will-change-transform"
-                    onMouseMove={(e) => {
-                      const b = e.currentTarget.getBoundingClientRect();
-                      const x = e.clientX - (b.left + b.width / 2);
-                      const y = e.clientY - (b.top + b.height / 2);
-                      e.currentTarget.style.transform = `translate3d(${x * 0.1}px, ${y * 0.1}px, 0) scale(1.03)`;
-                    }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'translate3d(0,0,0) scale(1)'; }}
-                  >
-                    <FaDownload className="mr-1" size={14} /> Download
-                  </a>
-                  <a
-                    href={`${process.env.PUBLIC_URL}/certificates/${cert.file}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center bg-cyan-600 text-white px-2.5 py-1.5 rounded-full hover:bg-cyan-700 transition shadow-md text-sm will-change-transform"
-                    onMouseMove={(e) => {
-                      const b = e.currentTarget.getBoundingClientRect();
-                      const x = e.clientX - (b.left + b.width / 2);
-                      const y = e.clientY - (b.top + b.height / 2);
-                      e.currentTarget.style.transform = `translate3d(${x * 0.1}px, ${y * 0.1}px, 0) scale(1.03)`;
-                    }}
-                    onMouseLeave={(e) => { e.currentTarget.style.transform = 'translate3d(0,0,0) scale(1)'; }}
-                  >
-                    <FaExternalLinkAlt className="mr-1" size={14} /> Open
-                  </a>
+                </div>
+
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 line-clamp-2 text-center">
+                  {cert.title}
+                </h3>
+                {/* Organization text removed from center */}
+                
+                {/* Progress bar removed */}
+              </div>
+                
+                {/* Action Buttons with Labels */}
+                <div className="relative z-10 flex items-center justify-center gap-6 p-5 bg-white/50 dark:bg-gray-900/30 border-t border-white/10">
+                  {/* Preview Button */}
+                  <div className="flex flex-col items-center group">
+                    <button 
+                      type="button"
+                      onClick={() => openPreview(cert)}
+                      className="p-3 rounded-full transition-all duration-300 transform hover:scale-110 cursor-pointer z-10
+                        bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-sm
+                        text-gray-700 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400
+                        hover:bg-blue-50/80 dark:hover:bg-blue-900/30
+                        border border-gray-200 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-900/30"
+                      aria-label="Preview certificate"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </button>
+                    <span className="mt-2 text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      Preview
+                    </span>
+                  </div>
+
+                  {/* Download Button */}
+                  <div className="flex flex-col items-center group">
+                    <a 
+                      href={`${process.env.PUBLIC_URL}/certificates/${cert.file}`} 
+                      download
+                      className="p-3 rounded-full transition-all duration-300 transform hover:scale-110 cursor-pointer z-10
+                        bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-sm
+                        text-gray-700 hover:text-green-600 dark:text-gray-200 dark:hover:text-green-400
+                        hover:bg-green-50/80 dark:hover:bg-green-900/30
+                        border border-gray-200 dark:border-gray-700 hover:border-green-200 dark:hover:border-green-900/30"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                      </svg>
+                    </a>
+                    <span className="mt-2 text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                      Download
+                    </span>
+                  </div>
+
+                  {/* Open in New Tab Button */}
+                  <div className="flex flex-col items-center group">
+                    <a 
+                      href={`${process.env.PUBLIC_URL}/certificates/${cert.file}`} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-full transition-all duration-300 transform hover:scale-110 cursor-pointer z-10
+                        bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-sm
+                        text-gray-700 hover:text-purple-600 dark:text-gray-200 dark:hover:text-purple-400
+                        hover:bg-purple-50/80 dark:hover:bg-purple-900/30
+                        border border-gray-200 dark:border-gray-700 hover:border-purple-200 dark:hover:border-purple-900/30"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                      </svg>
+                    </a>
+                    <span className="mt-2 text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                      Open
+                    </span>
+                  </div>
                 </div>
               </div>
+              
+              {/* Glow Effect */}
+              <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" 
+                style={{ 
+                  background: 'radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%), rgba(56, 189, 248, 0.1), transparent 60%)' 
+                }} 
+              />
             </motion.div>
           )}
         />
@@ -188,14 +324,14 @@ export default function Certificates() {
       <AnimatePresence>
         {previewOpen && activeCert && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+            className="fixed inset-0 z-50 flex items-start justify-center bg-black p-4 pt-20"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closePreview}
           >
             <motion.div
-              className="relative w-full max-w-4xl bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl"
+              className="relative w-full max-w-4xl bg-white dark:bg-gray-900 rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] min-h-[60vh] mt-4"
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 30, opacity: 0 }}
@@ -210,9 +346,9 @@ export default function Certificates() {
               </button>
               {activeCert.file.endsWith('.pdf') ? (
                 <object
-                  data={`${process.env.PUBLIC_URL}/certificates/${activeCert.file}`}
+                  data={`${process.env.PUBLIC_URL}/certificates/${activeCert.file}#zoom=page-fit`}
                   type="application/pdf"
-                  className="w-full h-[70vh]"
+                  className="w-full h-[60vh] md:h-[65vh] mx-auto my-2 rounded-none border-0"
                 >
                   <div className="p-6 text-center">
                     <p className="mb-2">PDF preview is not available in this browser.</p>
@@ -228,7 +364,7 @@ export default function Certificates() {
                 <img
                   src={`${process.env.PUBLIC_URL}/certificates/${activeCert.file}`}
                   alt={activeCert.title}
-                  className="w-full h-auto"
+                  className="max-w-[95%] max-h-[60vh] md:max-h-[65vh] object-contain mx-auto my-2"
                 />
               )}
               <div className="p-4 flex items-center justify-between">

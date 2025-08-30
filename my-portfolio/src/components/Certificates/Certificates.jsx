@@ -113,7 +113,7 @@ export default function Certificates() {
   return (
     <section
       id="certificates"
-      className="relative py-20 px-6 bg-white text-gray-900 dark:bg-gray-900 dark:text-white overflow-hidden"
+      className="relative py-20 px-6 bg-transparent text-gray-900 dark:text-white overflow-hidden"
       onMouseMove={(e) => {
         const s = e.currentTarget;
         const r = s.getBoundingClientRect();
@@ -141,7 +141,7 @@ export default function Certificates() {
         }}
       />
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
+        <h2 className="text-3xl font-bold mb-2 accent-text-gradient">
           🏅 My Certificates
         </h2>
         <p className="mb-10 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -187,9 +187,7 @@ export default function Certificates() {
               {/* Platform Badge (top-center) with theme color */}
               <div className="absolute top-4 inset-x-0 flex justify-center pointer-events-none">
                 <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium shadow-sm backdrop-blur-sm
-                  ${cert.gradient.includes('blue') ? 'bg-blue-100/90 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200' : 
-                     cert.gradient.includes('orange') ? 'bg-amber-100/90 text-amber-800 dark:bg-amber-900/50 dark:text-amber-200' : 
-                     'bg-purple-100/90 text-purple-800 dark:bg-purple-900/50 dark:text-purple-200'}
+                  bg-white/90 text-gray-800 dark:bg-gray-900/50 dark:text-gray-100 border border-black/5 dark:border-white/10
                   transition-all duration-300 group-hover:scale-105 group-hover:shadow-md`}>
                   {cert.platform}
                 </span>
@@ -247,7 +245,7 @@ export default function Certificates() {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button>
-                    <span className="mt-2 text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    <span className="mt-2 text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:text-white/90 transition-colors">
                       Preview
                     </span>
                   </div>
@@ -356,7 +354,7 @@ export default function Certificates() {
                       href={`${process.env.PUBLIC_URL}/certificates/${activeCert.file}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 underline"
+                      className="link-underline"
                     >Open PDF</a>
                   </div>
                 </object>
@@ -368,7 +366,7 @@ export default function Certificates() {
                 />
               )}
               <div className="p-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-blue-600 dark:text-blue-300">{activeCert.title}</h3>
+                <h3 className="text-lg font-semibold accent-text-gradient">{activeCert.title}</h3>
                 <div className="flex gap-2">
                   <a
                     href={`${process.env.PUBLIC_URL}/certificates/${activeCert.file}`}
@@ -381,7 +379,7 @@ export default function Certificates() {
                     href={`${process.env.PUBLIC_URL}/certificates/${activeCert.file}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center bg-cyan-600 text-white px-3 py-2 rounded-full hover:bg-cyan-700 transition shadow-md"
+                    className="inline-flex items-center justify-center accent-gradient text-white px-3 py-2 rounded-full hover:brightness-110 transition shadow-md"
                   >
                     <FaExternalLinkAlt className="mr-2" /> Open
                   </a>

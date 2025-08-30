@@ -82,7 +82,7 @@ function Contact() {
       whileInView={fadeInUp.animate}
       transition={fadeInUp.transition}
       viewport={viewportSettings}
-      className="pt-20 py-20 px-6 bg-white text-gray-900 dark:bg-gray-950 dark:text-white"
+      className="pt-20 py-20 px-6 bg-transparent text-gray-900 dark:text-white"
     >
       <motion.div
         initial={{ ...fadeInUp.initial, y: 60 }}
@@ -91,7 +91,7 @@ function Contact() {
         viewport={viewportSettings}
         className="max-w-3xl mx-auto text-center"
       >
-        <h2 className="text-3xl font-bold mb-8 text-blue-400">Contact Me</h2>
+        <h2 className="text-3xl font-bold mb-8 accent-text-gradient">Contact Me</h2>
         <form onSubmit={sendEmail} className="space-y-6">
           <div className="space-y-1">
             <input
@@ -100,7 +100,7 @@ function Contact() {
               value={formState.name}
               onChange={handleChange}
               placeholder="Your Name"
-              className="w-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white p-4 rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="w-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white p-4 rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--accent-from)] focus:border-transparent transition-all duration-200"
               disabled={isSubmitting}
             />
           </div>
@@ -111,7 +111,7 @@ function Contact() {
               value={formState.email}
               onChange={handleChange}
               placeholder="Your Email"
-              className="w-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white p-4 rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="w-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white p-4 rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--accent-from)] focus:border-transparent transition-all duration-200"
               disabled={isSubmitting}
             />
           </div>
@@ -122,7 +122,7 @@ function Contact() {
               onChange={handleChange}
               rows="5"
               placeholder="Your Message"
-              className="w-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white p-4 rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+              className="w-full bg-white/90 dark:bg-gray-800/90 text-gray-900 dark:text-white p-4 rounded-lg border border-gray-200 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-[var(--accent-from)] focus:border-transparent transition-all duration-200 resize-none"
               disabled={isSubmitting}
             />
           </div>
@@ -137,7 +137,7 @@ function Contact() {
                   ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' 
                   : status.type === 'success'
                     ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
-                    : 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+                    : 'bg-white/70 dark:bg-gray-800/50 text-gray-700 dark:text-gray-200'
               }`}
             >
               {status.type === 'error' ? (
@@ -157,11 +157,11 @@ function Contact() {
             transition={{ type: "spring", stiffness: 300 }}
             type="submit"
             disabled={isSubmitting}
-            className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-200 ${
+            className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold shadow-lg transition-all duration-200 text-white ${
               isSubmitting 
-                ? 'bg-blue-500/70 cursor-not-allowed' 
-                : 'bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400'
-            } text-white`}
+                ? 'accent-gradient opacity-70 cursor-not-allowed' 
+                : 'accent-gradient hover:opacity-95'
+            }`}
           >
             {isSubmitting ? (
               <>

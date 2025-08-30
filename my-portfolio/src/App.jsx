@@ -9,6 +9,7 @@ import Contact from "./components/Contact/Contact";
 import ProjectModal from "./components/Shared/ProjectModal";
 import CustomCursor from "./components/Shared/CustomCursor";
 import PointerBubblesDOM from "./components/Shared/PointerBubblesDOM";
+import ThemePicker from "./components/Shared/ThemePicker";
 
 import SectionTransitionWrapper from "./components/Shared/SectionTransitionWrapper";
 import ScrollProgressBar from "./components/Navigation/ScrollProgressBar";
@@ -34,6 +35,19 @@ function App() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
     localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+    // Handle theme classes/vars based on dark mode
+    const root = document.documentElement;
+    const themes = ["techy","minimal","neon"]; // retro removed
+    // Always clear theme classes first
+    root.classList.remove(...themes.map(id => `theme-${id}`));
+    if (!isDarkMode) {
+      // Remove inline CSS vars when exiting dark mode
+      ["--accent-from","--accent-to"].forEach(k => root.style.removeProperty(k));
+    } else {
+      // Apply saved theme when entering dark mode
+      const saved = localStorage.getItem('pref-theme') || 'techy';
+      root.classList.add(`theme-${saved}`);
+    }
   }, [isDarkMode]);
 
   // Apply reduced motion preference globally and notify listeners
@@ -46,7 +60,7 @@ function App() {
 
   // Scrollspy: observe sections intersecting viewport
   useEffect(() => {
-    const ids = ["hero", "projects", "about", "skills", "certificates", "contact"];
+    const ids = ["hero", "about", "skills", "projects", "certificates", "contact"]; // exclude footer from nav highlight
     const elements = ids
       .map((id) => document.getElementById(id))
       .filter(Boolean);
@@ -60,7 +74,7 @@ function App() {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
         if (visible[0]) setActiveSection(visible[0].target.id);
       },
-      { root: null, rootMargin: "0px 0px -60% 0px", threshold: [0.2, 0.4, 0.6, 0.8] }
+      { root: null, rootMargin: "-20% 0px -55% 0px", threshold: [0.1, 0.25, 0.5, 0.75] }
     );
 
     elements.forEach((el) => observer.observe(el));
@@ -68,7 +82,9 @@ function App() {
   }, []);
 
   return (
-    <div className={`${isDarkMode ? "dark" : ""} relative bg-white dark:bg-transparent`}>
+    <div className={`${isDarkMode ? "dark" : ""} relative bg-transparent`}>
+      {/* Themed background across the whole app (dark only) */}
+      {isDarkMode && <div aria-hidden className="fixed inset-0 -z-10 themed-bg" />}
       <PointerBubblesDOM density={26} maxParticles={1500} sizeMin={1} sizeMax={3} drift={48} duration={900} />
       <CustomCursor />
       <ScrollProgressBar />
@@ -83,6 +99,8 @@ function App() {
 
       {/* Quick Controls: Theme + Motion */}
       <div className="fixed top-3 right-3 z-[11000] flex items-center gap-2">
+        {isDarkMode && <ThemePicker compact labelWhite darkDropdown />}
+        {/* Theme toggle */}
         <button
           onClick={() => setIsDarkMode((v) => !v)}
           className="px-3 py-1.5 rounded-full text-xs transition border 
@@ -127,9 +145,6 @@ function App() {
       <SectionTransitionWrapper variant="diagonal">
         <Hero />
       </SectionTransitionWrapper>
-      <SectionTransitionWrapper variant="split">
-        <Projects setSelectedProject={setSelectedProject} />
-      </SectionTransitionWrapper>
       <SectionTransitionWrapper variant="circle">
         <About />
       </SectionTransitionWrapper>
@@ -137,11 +152,23 @@ function App() {
         <Skills />
       </SectionTransitionWrapper>
       <SectionTransitionWrapper variant="split">
+        <Projects setSelectedProject={setSelectedProject} />
+      </SectionTransitionWrapper>
+      <SectionTransitionWrapper variant="split">
         <Certificates />
       </SectionTransitionWrapper>
       <SectionTransitionWrapper variant="circle">
         <Contact />
       </SectionTransitionWrapper>
+      {/* Footer */}
+      <footer id="footer" className="mt-10 py-10 px-6 text-center text-sm text-gray-600 dark:text-gray-300">
+        <div className="max-w-6xl mx-auto">
+          <div className="h-px w-full mb-6 bg-gray-200 dark:bg-white/10" />
+          <p>
+            © {new Date().getFullYear()} Prajwal R K. All rights reserved.
+          </p>
+        </div>
+      </footer>
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

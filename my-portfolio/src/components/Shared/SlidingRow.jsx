@@ -101,7 +101,7 @@ export default function SlidingRow({
       <div className="relative w-full mb-6">
         <div className="h-1.5 w-full bg-gray-100 dark:bg-gray-700/80 rounded-full overflow-hidden">
           <div 
-            className="h-full bg-gradient-to-r from-blue-500 to-blue-400 dark:from-blue-400 dark:to-blue-300 transition-all duration-500 ease-out shadow-[0_0_8px_rgba(59,130,246,0.4)]"
+            className="h-full accent-gradient transition-all duration-500 ease-out"
             style={{ 
               width: `${progress * 100}%`,
               transitionProperty: 'width',
@@ -217,7 +217,7 @@ export default function SlidingRow({
                   onClick={() => scrollToIndex(index)}
                   className={`h-2 rounded-full transition-all duration-200 ${
                     index === active 
-                      ? 'w-4 bg-blue-600 dark:bg-blue-500' 
+                      ? 'w-4 accent-gradient' 
                       : 'w-2 h-2 bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
                   }`}
                   aria-label={`Go to slide ${index + 1}`}

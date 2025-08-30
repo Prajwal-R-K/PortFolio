@@ -13,7 +13,23 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <script>
+      // Apply saved theme class early to avoid FOUC, but only in dark mode
+      (function() {
+        try {
+          var root = document.documentElement;
+          var isDark = (localStorage.getItem('theme') === 'dark');
+          var all = ['techy','minimal','neon']; // retro removed
+          all.forEach(function(id){ root.classList.remove('theme-' + id); });
+          if (isDark) {
+            var t = localStorage.getItem('pref-theme') || 'techy';
+            root.classList.add('theme-' + t);
+          }
+        } catch (e) {}
+      })();
+    </script>
 
     <!-- Open Graph / Twitter -->
     <meta property="og:type" content="website" />

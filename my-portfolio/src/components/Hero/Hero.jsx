@@ -4,6 +4,7 @@ import { MdEmail } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
 import BubbleTrail from "./BubbleTrail";
 import WavyUnderline from "./WavyUnderline";
+import ThreeBackground from "./ThreeBackground";
 
 function Hero() {
   const fullName = "Prajwal R K";
@@ -22,6 +23,7 @@ function Hero() {
   const [riderPaintTick, setRiderPaintTick] = useState(0); // trigger re-render for proximity glow
   const paintScheduledRef = useRef(false);
   const [emailOpen, setEmailOpen] = useState(false);
+  const [downloading, setDownloading] = useState(false);
   const emailWrapRef = useRef(null);
   
   if (!orderMapRef.current) {
@@ -124,7 +126,9 @@ function Hero() {
   }, [emailOpen]);
 
   return (
-    <section id="hero" className="relative overflow-hidden pt-28 sm:pt-32 flex items-center justify-center min-h-screen p-6 bg-white text-gray-900 dark:bg-gradient-to-br dark:from-[#0b1020] dark:via-[#090814] dark:to-[#0d0b1a] dark:text-white">
+    <section id="hero" className="relative overflow-hidden pt-28 sm:pt-32 flex items-center justify-center min-h-screen p-6 bg-transparent text-gray-900 dark:text-white">
+      {/* Three.js background */}
+      <ThreeBackground />
       {/* Animated gradient blobs */}
       <motion.div
         aria-hidden
@@ -228,14 +232,14 @@ function Hero() {
         </motion.h1>
         {/* Short role/title under name with subtle underline */}
         <div className="group relative inline-block">
-          <p className="bg-gradient-to-r from-[#7C4DFF] via-[#4aa8ff] to-[#00D1FF] bg-clip-text text-transparent font-medium text-[0.98rem] sm:text-[1.05rem] -mt-1 select-none">
+          <p className="accent-text-gradient font-medium text-[0.98rem] sm:text-[1.05rem] -mt-1 select-none">
             Full‑Stack Developer specializing in Java & Python | Crafting Scalable Web Solutions
           </p>
           <motion.div
             initial={{ scaleX: 0.45, opacity: 0.7 }}
             whileHover={{ scaleX: 0.8, opacity: 1 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="mx-auto h-px origin-center bg-gradient-to-r from-[#7C4DFF] via-[#4aa8ff] to-[#00D1FF]"
+            className="mx-auto h-px origin-center accent-gradient"
           />
         </div>
         <div ref={waveWrapRef} className="mt-0.5 flex justify-center" onMouseEnter={() => setWaveHover(true)} onMouseLeave={() => setWaveHover(false)}>
@@ -258,18 +262,43 @@ function Hero() {
           Building scalable apps with clean code and creative design.
         </motion.p>
         {/* Primary CTA */}
-        <div className="mt-5 flex items-center justify-center">
-          <motion.a
-            href={`${process.env.PUBLIC_URL}/Resume.pdf`}
-            download
+        <div className="mt-5 flex items-center justify-center relative">
+          <motion.button
+            type="button"
+            onClick={() => {
+              if (downloading) return;
+              setDownloading(true);
+              // small delay for visual feedback, then trigger download programmatically
+              setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = `${process.env.PUBLIC_URL}/Resume.pdf`;
+                link.download = 'Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                setTimeout(() => setDownloading(false), 800);
+              }, 450);
+            }}
             title="Get a copy of my latest CV"
             whileHover={{ scale: 1.03, y: -1 }}
             whileTap={{ scale: 0.98, y: 0 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="inline-block px-7 py-3 rounded-full font-semibold text-white bg-gradient-to-br from-[#7C4DFF] to-[#00D1FF] hover:shadow-[0_0_24px_rgba(124,77,255,0.45)] transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-400"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold text-white accent-gradient hover:shadow-[0_0_24px_rgba(124,77,255,0.35)] transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-cyan-400"
           >
-            📄 Download Resume
-          </motion.a>
+            {downloading ? 'Preparing…' : '📄 Download Resume'}
+          </motion.button>
+          <AnimatePresence>
+            {downloading && (
+              <motion.span
+                key="pulse"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.35 }}
+                className="absolute -z-0 w-40 h-40 rounded-full bg-cyan-500/15 blur-2xl"
+              />
+            )}
+          </AnimatePresence>
         </div>
         
         {/* Small social proof row */}

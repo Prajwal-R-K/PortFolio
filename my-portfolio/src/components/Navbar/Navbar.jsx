@@ -1,8 +1,12 @@
 import React from "react";
+// ThemePicker moved to App quick controls
 
 function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen, activeSection }) {
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur supports-[backdrop-filter]:bg-white/50 dark:supports-[backdrop-filter]:bg-black/30 bg-white/70 dark:bg-black/40 border-b border-white/20 dark:border-white/10">
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur
+      bg-white/90 dark:bg-black/70 shadow-sm
+      md:supports-[backdrop-filter]:bg-white/50 md:dark:supports-[backdrop-filter]:bg-black/40 md:bg-white/70
+      border-b border-black/10 dark:border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
         <div className="relative group">
           <a
@@ -25,20 +29,20 @@ function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen, activeSectio
           </a>
         </div>
         {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 text-sm font-semibold text-gray-700 dark:text-gray-300">
+        <div className="hidden md:flex items-center space-x-6 text-sm font-semibold text-gray-800 dark:text-gray-200">
           {[
             { href: "#hero", label: "Home" },
-            { href: "#projects", label: "Projects" },
             { href: "#about", label: "About" },
             { href: "#skills", label: "Skills" },
+            { href: "#projects", label: "Projects" },
             { href: "#certificates", label: "Certifications" },
-            { href: "#contact", label: "Contact me" },
+            { href: "#contact", label: "Contact" },
           ].map((item) => (
             <a
               key={item.href}
               href={item.href}
               className={`relative transition after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-gradient-to-r from-cyan-400 to-blue-600 hover:after:w-full after:transition-all ${
-                activeSection === item.href.replace('#','') ? 'text-blue-600 dark:text-cyan-300 after:w-full' : 'hover:text-blue-500'
+                activeSection === item.href.replace('#','') ? 'text-blue-700 dark:text-cyan-300 after:w-full' : 'hover:text-blue-600 dark:hover:text-cyan-300'
               }`}
             >
               {item.label}
@@ -48,13 +52,15 @@ function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen, activeSectio
             href={`${process.env.PUBLIC_URL}/Resume.pdf`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-500 transition"
+            className="hover:text-blue-600 transition"
           >
             View Resume
           </a>
         </div>
+        {/* Right Controls (Desktop): reserved (theme controls are in App quick controls) */}
+        <div className="hidden md:flex items-center gap-3" />
         {/* Mobile */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="md:hidden text-gray-700 dark:text-gray-300 text-2xl focus:outline-none"
@@ -66,20 +72,20 @@ function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen, activeSectio
       </div>
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden px-6 pb-4 space-y-4 text-sm text-gray-800 dark:text-gray-300 bg-white/80 dark:bg-black/60 backdrop-blur">
+        <div className="md:hidden px-6 pb-4 space-y-4 text-sm text-gray-900 dark:text-gray-200 bg-white/90 dark:bg-black/80 backdrop-blur">
           {[
             { id: 'hero', label: 'Home' },
-            { id: 'projects', label: 'Projects' },
             { id: 'about', label: 'About' },
             { id: 'skills', label: 'Skills' },
+            { id: 'projects', label: 'Projects' },
             { id: 'certificates', label: 'Certifications' },
-            { id: 'contact', label: 'Contact me' },
+            { id: 'contact', label: 'Contact' },
           ].map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
               onClick={() => setMenuOpen(false)}
-              className={`block transition ${activeSection === item.id ? 'text-blue-600 dark:text-cyan-300 font-semibold' : 'hover:text-blue-500'}`}
+              className={`block transition ${activeSection === item.id ? 'text-blue-700 dark:text-cyan-300 font-semibold' : 'hover:text-blue-600 dark:hover:text-cyan-300'}`}
             >
               {item.label}
             </a>
@@ -88,7 +94,7 @@ function Navbar({ isDarkMode, setIsDarkMode, menuOpen, setMenuOpen, activeSectio
             href={`${process.env.PUBLIC_URL}/Resume.pdf`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-blue-500 transition block"
+            className="hover:text-blue-600 transition block"
           >
             View Resume
           </a>

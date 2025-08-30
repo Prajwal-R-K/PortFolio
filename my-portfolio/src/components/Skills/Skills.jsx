@@ -87,7 +87,7 @@ function Skills() {
   };
 
   return (
-    <section id="skills" className="pt-20 px-6 bg-white text-gray-900 dark:bg-gradient-to-r dark:from-black dark:to-gray-900 dark:text-white">
+    <section id="skills" className="pt-20 px-6 bg-transparent text-gray-900 dark:text-white">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -95,7 +95,7 @@ function Skills() {
         variants={containerVariants}
         className="max-w-5xl mx-auto"
       >
-        <motion.h2 className="text-3xl font-bold mb-8 text-center text-blue-400" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ duration: 0.5, ease: 'easeOut' }}>
+        <motion.h2 className="text-3xl font-bold mb-8 text-center accent-text-gradient" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ duration: 0.5, ease: 'easeOut' }}>
           My Tech Stack
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -106,7 +106,7 @@ function Skills() {
               className="rounded-2xl bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-white/10 p-5 shadow-sm"
             >
               <motion.div
-                className="h-1.5 w-full bg-gradient-to-r from-cyan-400 to-fuchsia-500 rounded-full mb-4"
+                className="h-1.5 w-full accent-gradient rounded-full mb-4"
                 aria-hidden
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}

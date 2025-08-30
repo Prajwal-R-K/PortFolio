@@ -28,7 +28,8 @@ html {
 #about,
 #skills,
 #certificates,
-#contact {
+#contact,
+#footer {
   scroll-margin-top: 88px; /* Adjust if navbar height changes */
 }
 
@@ -49,9 +50,64 @@ html {
 
 /* Global visuals */
 html, body, #root { height: 100%; }
-body { font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif; }
+/* Fonts driven by variables set per theme */
+body { font-family: var(--font-sans, 'Inter'), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', 'Helvetica Neue', Arial, sans-serif; }
 /* Use one consistent family for headings and any display text */
-h1, h2, h3, .font-display { font-family: 'Inter', ui-sans-serif, system-ui; }
+h1, h2, h3, .font-display { font-family: var(--font-display, 'Inter'), ui-sans-serif, system-ui; }
+
+/* Theme variables (accent gradient) */
+:root,
+.theme-techy {
+  --accent-from: #22d3ee; --accent-to: #6366f1;
+  --font-sans: 'Space Grotesk';
+  --font-display: 'Space Grotesk';
+  --bg-from: #0b1020; --bg-via: #090814; --bg-to: #0d0b1a;
+}
+.theme-minimal {
+  --accent-from: #64748b; --accent-to: #94a3b8;
+  --font-sans: 'Montserrat';
+  --font-display: 'Montserrat';
+  --bg-from: #0f1115; --bg-via: #0e1014; --bg-to: #0f1115;
+}
+.theme-retro {
+  --accent-from: #fbbf24; --accent-to: #ef4444;
+  --font-sans: 'Press Start 2P', monospace;
+  --font-display: 'Press Start 2P', monospace;
+  --bg-from: #1b1020; --bg-via: #1a0f1d; --bg-to: #201018;
+}
+.theme-neon {
+  --accent-from: #22d3ee; --accent-to: #14b8a6;
+  --font-sans: 'JetBrains Mono', monospace;
+  --font-display: 'JetBrains Mono', monospace;
+  --bg-from: #030712; --bg-via: #070a18; --bg-to: #0a1022;
+}
+
+/* Utilities using theme vars */
+.accent-gradient { background-image: linear-gradient(135deg, var(--accent-from), var(--accent-to)); }
+.accent-text-gradient {
+  background-image: linear-gradient(135deg, var(--accent-from), var(--accent-to));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.accent-border { border-color: var(--accent-to); }
+
+/* Themed section background utility */
+.themed-bg {
+  background-image: linear-gradient(135deg, var(--bg-from), var(--bg-to));
+  background-color: var(--bg-from);
+}
+
+/* Accent underline for nav/links using CSS variables */
+.link-underline { position: relative; }
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -0.25rem;
+  height: 2px; width: 0;
+  background-image: linear-gradient(90deg, var(--accent-from), var(--accent-to));
+  transition: width 200ms ease;
+}
+.link-underline:hover::after { width: 100%; }
+.link-underline.active::after { width: 100%; }
 
 /* --- Cross-browser text normalization & responsive base typography --- */
 @layer base {
